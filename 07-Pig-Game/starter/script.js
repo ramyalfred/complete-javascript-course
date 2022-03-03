@@ -16,15 +16,48 @@ function initializeGame(){
 
 initializeGame();
 
+function switchPlayer(){
+  if(playerOne){
+    document.querySelector('.player--0').classList.remove('player--active');
+    document.querySelector('.player--1').classList.add('player--active');
+    document.getElementById('score--0').textContent = playerOneScore;
+    console.log(playerOneScore);
+  }else{
+    document.querySelector('.player--1').classList.remove('player--active');
+    document.querySelector('.player--0').classList.add('player--active');
+    document.getElementById('score--1').textContent = playerTwoScore;
+    console.log(playerTwoScore);
+  }
+  playerOne = !playerOne;
+  document.getElementById('current--1').textContent = 0;
+  document.getElementById('current--0').textContent = 0;
+};
+
 function rollDice(){
   diceNumber = Math.ceil(Math.random() * 6);
   document.querySelector('.dice').src="dice-"+diceNumber+".png";
   updateCurrentCounter(diceNumber);
 }
 
-function switchPlayer(playerOne){
-  
+function checkWinningCondition(){
+  if(playerOneScore >= 100){
+    console.log()
+  }
 }
+
+function hold(){
+  if(playerOne){
+    playerOneScore = playerOneScore + playerOneCounter;
+    playerOneCounter = 0;
+  }else{
+    playerTwoScore = playerTwoScore + playerTwoCounter;
+    playerTwoCounter = 0;
+  }
+  switchPlayer();
+  checkWinningCondition();
+}
+
+document.querySelector('.btn--hold').addEventListener('click',hold);
 
 function updateCurrentCounter(diceNumber){
   if(diceNumber == 1){
@@ -42,22 +75,11 @@ function updateCurrentCounter(diceNumber){
   }
 }
 
-function switchPlayer(){
-  if(playerOne){
-
-  }
-}
-
-function updateScore(diceRoll){
-  if(user1){
-
-  }else{
-    
-  }
-}
 
 document.querySelector('.btn--roll').addEventListener('click', 
   function (){
     rollDice();
   }
 )
+
+document.querySelector('.btn--new').addEventListener('click',initializeGame);
