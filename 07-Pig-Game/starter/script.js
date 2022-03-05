@@ -1,5 +1,7 @@
 'use strict';
 
+const WINNING_STRING = "You Win! 🎉"
+
 let diceNumber;
 let playerOne = true;
 let playerOneCounter = 0;
@@ -12,6 +14,8 @@ function initializeGame(){
   playerOneScore = playerTwoScore = 0;
   document.getElementById('score--0').textContent = playerOneScore;
   document.getElementById('score--1').textContent = playerTwoScore;
+  document.querySelector('.btn--hold').style.display = 'block';
+    document.querySelector('.btn--roll').style.display = 'block';
 }
 
 initializeGame();
@@ -29,6 +33,7 @@ function switchPlayer(){
     console.log(playerTwoScore);
   }
   playerOne = !playerOne;
+  playerOneCounter = playerTwoCounter = 0;
   document.getElementById('current--1').textContent = 0;
   document.getElementById('current--0').textContent = 0;
 };
@@ -41,7 +46,9 @@ function rollDice(){
 
 function checkWinningCondition(){
   if(playerOneScore >= 100){
-    console.log()
+    document.getElementById('score--0').textContent = WINNING_STRING;
+    document.querySelector('.btn--hold').style.display = 'none';
+    document.querySelector('.btn--roll').style.display = 'none';
   }
 }
 
